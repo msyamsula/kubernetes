@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: worker-api-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      component: worker-api
+  template:
+    metadata:
+      labels:
+        component: worker-api
+    spec:
+      containers:
+        - image: syamsuldocker/anomaly:latest
+          name: worker-api
+          ports:
+            - containerPort: 5000
+          env:
+            - name: MONGO_HOST
+              value: mongo-cluster-ip
+            - name: MONGO_PORT
+              value: "3000"
+
+
